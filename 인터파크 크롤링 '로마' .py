@@ -46,7 +46,7 @@ driver.find_element_by_xpath('/html/body/div[3]/div/div/div[6]/div[4]/ul/li[6]/b
 
 # searchModule.SetCategoryList(1, '') 스크립트 실행
 
-for page in range(1, 2):
+for page in range(1, 16):
     try: #자바스크립트 구동
         driver.execute_script("searchModule.SetCategoryList(%s, '')" % page) #n페이지 = %
         time.sleep(2)

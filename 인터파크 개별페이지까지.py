@@ -46,7 +46,7 @@ driver.find_element_by_xpath('/html/body/div[3]/div/div/div[6]/div[4]/ul/li[6]/b
 
 # searchModule.SetCategoryList(1, '') 스크립트 실행
 
-for page in range(1, 3):
+for page in range(1, 2):
     try: #자바스크립트 구동
         driver.execute_script("searchModule.SetCategoryList(%s, '')" % page) #n페이지 = %
         time.sleep(2)
@@ -96,12 +96,14 @@ for tour in tour_list:
         #상세 페이지 이동 : URL 값이 완성된 형태인지 확인 (http~)
         driver.get( detail_url )
         time.sleep(2)
-
+        #bs4 설치 / 현재 패이지를 beautifulsoup 의 DOM으로 구성
+        soup = bs( driver.page_source, 'html.parser') #현재 패이지를 뷰티플숩 으로 올림
+        #현재 상세 정보 페이지에서 스케줄 정보 획득
+        soup.select('.tip-cover')
         #디비 입력 > pip install pymysql / maria DB 설치
-        #그러나 너무 어려움..
+        
+import pandas as pd
 
-#종료
-driver.close()
-driver.quir()  #드라이버 창을받고 sys 없에주고
-import sys
-sys.exit()
+df = pd.DataFrame([[p.title, p.price, p.area, p.link, p.img, p] for p in tour_list],columns=list('ABCDEF'))
+
+df.to_csv("/Users/user/Desktop/여행정보 도식화.csv", header=False, index =False
